@@ -14,8 +14,8 @@ class Admin
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {    if (!auth()->check() || !auth()->user()->is_admin) {
-        abort(403);
+    {      if (\Auth::user()->role_id != 1) {
+        return response()->json('Opps! You do not have permission to access.');
     }
  
         return $next($request);
